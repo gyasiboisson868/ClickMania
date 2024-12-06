@@ -1,0 +1,2 @@
+# ClickMania
+clicking game
