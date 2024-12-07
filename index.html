@@ -18,3 +18,39 @@
   <script src="script.js"></script>
 </body>
 </html>
+<script>
+    const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    function updateLeaderboard(newScore) {
+        leaderboard.push(newScore);
+        leaderboard.sort((a, b) => b - a); // Sort scores in descending order
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    }
+
+    function displayLeaderboard() {
+        let leaderboardHTML = "<h2>Leaderboard</h2><ol>";
+        leaderboard.slice(0, 5).forEach((score, index) => {
+            leaderboardHTML += `<li>${score}</li>`;
+        });
+        leaderboardHTML += "</ol>";
+        document.body.insertAdjacentHTML("beforeend", leaderboardHTML);
+    }
+
+    // Add to the game logic
+    clickButton.addEventListener("click", () => {
+        score++;
+        scoreDisplay.textContent = `Score: ${score}`;
+    });
+
+    const timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = `Time Left: ${timeLeft}`;
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            clickButton.disabled = true;
+            updateLeaderboard(score); // Update leaderboard with the final score
+            displayLeaderboard(); // Show leaderboard
+            alert(`Game Over! Your final score is ${score}.`);
+        }
+    }, 1000);
+</script>
