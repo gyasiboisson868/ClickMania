@@ -1,4 +1,4 @@
-# Click Mania Gyasi Boisson gyasifboisson@lewisu.edu, Class project Proposal
+# Click Mania By: Gyasi Boisson  Lewis Email: gyasifboisson@lewisu.edu, Class project Proposal
 
 Click Mania is a simple clicker game where you aim to achieve the highest score within 30 seconds.
 Disclaimer: Code is not original and has been sourced from ChatGPT
