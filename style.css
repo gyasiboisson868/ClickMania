@@ -37,3 +37,9 @@ button:hover {
   font-size: 20px;
   margin: 10px 0;
 }
+#gameGif {
+  width: 100%; /* Make it full width */
+  max-width: 400px; /* Limit the maximum width */
+  display: block;
+  margin: 0 auto 20px; /* Center it and add space below */
+}
