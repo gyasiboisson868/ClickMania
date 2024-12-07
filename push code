@@ -1,0 +1,6 @@
+# Add GitHub repository URL (replace `<USERNAME>` with your username)
+git remote add origin https://github.com/<gyasiboisson868>/ClickMania
+
+# Push the code
+git branch -M main
+git push -u origin main
