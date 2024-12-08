@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-    <h1>Click Mania Game</h1>
+        <h1>Click Mania Game</h1>
     <div id="timer">Time Left: 30</div>
     <div id="score">Score: 0</div>
     <button id="click-button">Click Me!</button>
@@ -41,7 +41,7 @@
     </div>
 
     <!-- Audio element for background sound -->
-    <audio id="background-audio" src="game-start-audio.mp3" autoplay loop></audio>
+    <audio id="background-audio" src="game-start-audio.mp3" loop></audio>
 
     <!-- Audio element for game over sound -->
     <audio id="game-over-audio" src="game-over-audio.mp3"></audio>
@@ -49,6 +49,9 @@
     <script>
         let score = 0;
         let timeLeft = 30; // Game duration in seconds
+        let timer;
+        let gameStarted = false; // Track if the game has started
+
         const scoreDisplay = document.getElementById("score");
         const timerDisplay = document.getElementById("timer");
         const clickButton = document.getElementById("click-button");
@@ -57,11 +60,14 @@
         const gameOverAudio = document.getElementById("game-over-audio");
         const backgroundAudio = document.getElementById("background-audio");
 
-        let timer;
-
-        // Update score on button click
+        // Update score on button click and start the game if not already started
         clickButton.addEventListener("click", () => {
-              score++;
+            if (!gameStarted) {
+                gameStarted = true;
+                backgroundAudio.play(); // Start background audio
+                startTimer(); // Start the game timer
+            }
+            score++;
             scoreDisplay.textContent = `Score: ${score}`;
         });
 
@@ -83,7 +89,7 @@
                     updateLeaderboard(score);
                     restartButton.style.display = "inline-block"; // Show restart button
                 }
-            }, 1000);
+                  }, 1000);
         }
 
         // Update leaderboard
@@ -92,23 +98,20 @@
             listItem.textContent = `Score: ${newScore}`;
             leaderboardList.appendChild(listItem);
         }
-        
+
         // Restart game functionality
         restartButton.addEventListener("click", () => {
             score = 0;
             timeLeft = 30;
+            gameStarted = false; // Reset game started flag
             scoreDisplay.textContent = "Score: 0";
             timerDisplay.textContent = "Time Left: 30";
             clickButton.disabled = false;
             restartButton.style.display = "none";
             clearInterval(timer);
             backgroundAudio.currentTime = 0; // Reset background audio
-            backgroundAudio.play();
-            startTimer();
+            backgroundAudio.pause();
         });
-
-        // Start the game timer
-        startTimer();
     </script>
 </body>
 </html>
