@@ -1,51 +1,52 @@
-let score = 0;
-let timeLeft = 30;
-let gameInterval;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click Mani</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #click-button {
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #timer, #score {
+            font-size: 24px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click Mani Game</h1>
+    <div id="timer">Time Left: 10</div>
+    <div id="score">Score: 0</div>
+    <button id="click-button">Click Me!</button>
 
-const scoreDisplay = document.getElementById('score');
-const timerDisplay = document.getElementById('timer');
-const clickButton = document.getElementById('clickButton');
-const restartButton = document.getElementById('restartButton');
+    <script>
+        let score = 0;
+        let timeLeft = 10; // Game duration in seconds
+        const scoreDisplay = document.getElementById("score");
+        const timerDisplay = document.getElementById("timer");
+        const clickButton = document.getElementById("click-button");
 
-// Update the score when the button is clicked
-clickButton.addEventListener('click', () => {
-  if (timeLeft > 0) {
-    score++;
-    scoreDisplay.textContent = `Score: ${score}`;
-  }
-});
+        // Update score on button click
+        clickButton.addEventListener("click", () => {
+            score++;
+            scoreDisplay.textContent = `Score: ${score}`;
+        });
 
-// Start the game timer
-function startGame() {
-  gameInterval = setInterval(() => {
-    timeLeft--;
-    timerDisplay.textContent = `Time Left: ${timeLeft}s`;
-
-    if (timeLeft <= 0) {
-      clearInterval(gameInterval);
-      endGame();
-    }
-  }, 1000);
-}
-
-// End the game
-function endGame() {
-  clickButton.style.display = 'none';
-  restartButton.style.display = 'block';
-  timerDisplay.textContent = 'Time’s up!';
-  alert(`Game over! Your final score is ${score}`);
-}
-
-// Restart the game
-restartButton.addEventListener('click', () => {
-  score = 0;
-  timeLeft = 30;
-  scoreDisplay.textContent = `Score: 0`;
-  timerDisplay.textContent = `Time Left: 30s`;
-  clickButton.style.display = 'block';
-  restartButton.style.display = 'none';
-  startGame();
-});
-
-// Start the game on page load
-startGame();
+        // Countdown timer
+        const timer = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = `Time Left: ${timeLeft}`;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                clickButton.disabled = true; // Disable the button when the game ends
+                alert(`Game Over! Your final score is ${score}.`);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
