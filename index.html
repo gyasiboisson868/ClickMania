@@ -1,4 +1,4 @@
-<let score = 0;
+let score = 0;
 let timeLeft = 30;
 let gameInterval;
 
@@ -49,67 +49,3 @@ restartButton.addEventListener('click', () => {
 
 // Start the game on page load
 startGame();
-<script>
-    const leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-
-    function updateLeaderboard(newScore) {
-        leaderboard.push(newScore);
-        leaderboard.sort((a, b) => b - a); // Sort scores in descending order
-        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-    }
-
-    function displayLeaderboard() {
-        let leaderboardHTML = "<h2>Leaderboard</h2><ol>";
-        leaderboard.slice(0, 5).forEach((score, index) => {
-            leaderboardHTML += `<li>${score}</li>`;
-        });
-        leaderboardHTML += "</ol>";
-        document.body.insertAdjacentHTML("beforeend", leaderboardHTML);
-    }
-
-    // Add to the game logic
-    clickButton.addEventListener("click", () => {
-        score++;
-        scoreDisplay.textContent = `Score: ${score}`;
-    });
-
-    const timer = setInterval(() => {
-        timeLeft--;
-        timerDisplay.textContent = `Time Left: ${timeLeft}`;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            clickButton.disabled = true;
-            updateLeaderboard(score); // Update leaderboard with the final score
-            displayLeaderboard(); // Show leaderboard
-            alert(`Game Over! Your final score is ${score}.`);
-        }
-    }, 1000);
-</script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Background to Blue</title>
-    <style>
-        body {
-            background-color: blue; /* Set background color to blue */
-            color: white; /* Optional: Set text color to white for better visibility */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: white;
-            color: blue;
-            border: 2px solid white;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: lightblue;
-        }
-    </style>
-
