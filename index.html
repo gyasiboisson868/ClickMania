@@ -29,10 +29,10 @@
     </style>
 </head>
 <body>
-    <h1>Click Mania Game</h1>
+     <h1>Click Mania Game</h1>
     <div id="timer">Time Left: 30</div>
-    <div id="score">
-         <button id="click-button">Click Me!</button>
+    <div id="score">Score: 0</div>
+    <button id="click-button">Click Me!</button>
     <button id="restart-button">Restart</button>
 
     <div id="leaderboard">
@@ -49,28 +49,39 @@
         const restartButton = document.getElementById("restart-button");
         const leaderboardList = document.getElementById("leaderboard-list");
 
+        let timer;
+
         // Update score on button click
         clickButton.addEventListener("click", () => {
             score++;
             scoreDisplay.textContent = `Score: ${score}`;
         });
 
-        // Countdown timer
-        const timer = setInterval(() => {
-            timeLeft--;
-            timerDisplay.textContent = `Time Left: ${timeLeft}`;
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                clickButton.disabled = true; // Disable the button when the game ends
-                if (score > 100) {
-                    alert("Congratulations, you scored over 100!");
-                } else {
-                    alert(`Game Over! Your final score is ${score}.`);
+        // Countdown timer function
+        function startTimer() {
+            timer = setInterval(() => {
+                timeLeft--;
+                  timerDisplay.textContent = `Time Left: ${timeLeft}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    clickButton.disabled = true; // Disable the button when the game ends
+                    if (score > 100) {
+                        alert("Congratulations, you scored over 100!");
+                    } else {
+                        alert(`Game Over! Your final score is ${score}.`);
+                    }
+                    updateLeaderboard(score);
+                    restartButton.style.display = "inline-block"; // Show restart button
                 }
-                updateLeaderboard(score);
-                  restartButton.style.display = "inline-block"; // Show restart button
-            }
-        }, 1000);
+            }, 1000);
+        }
+
+        // Update leaderboard
+        function updateLeaderboard(newScore) {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Score: ${newScore}`;
+            leaderboardList.appendChild(listItem);
+        }
 
         // Restart game functionality
         restartButton.addEventListener("click", () => {
@@ -80,34 +91,12 @@
             timerDisplay.textContent = "Time Left: 30";
             clickButton.disabled = false;
             restartButton.style.display = "none";
-            startTimer();
+            clearInterval(timer);
+             startTimer();
         });
 
-        // Update leaderboard
-        function updateLeaderboard(newScore) {
-            const listItem = document.createElement("li");
-            listItem.textContent = `Score: ${newScore}`;
-            leaderboardList.appendChild(listItem);
-        }
-
-        // Start the timer
-        function startTimer() {
-            const timer = setInterval(() => {
-                timeLeft--;
-                timerDisplay.textContent = `Time Left: ${timeLeft}`;
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    clickButton.disabled = true;
-                    if (score > 100) {
-                          alert("Congratulations, you scored over 100!");
-                    } else {
-                        alert(`Game Over! Your final score is ${score}.`);
-                    }
-                    updateLeaderboard(score);
-                    restartButton.style.display = "inline-block";
-                }
-            }, 1000);
-        }
+        // Start the game timer
+        startTimer();
     </script>
 </body>
 </html>
